@@ -40,6 +40,7 @@ defmodule Postbits.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:live_debugger, "~> 0.5", only: [:dev]},
       {:tidewave, "~> 0.5", only: [:dev]},
       {:phoenix, "~> 1.8.3"},
       {:phoenix_html, "~> 4.1"},
