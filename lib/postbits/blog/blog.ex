@@ -17,6 +17,7 @@ defmodule Postbits.Blog do
   # And finally export them
   def all_posts, do: @posts
   def all_tags, do: @tags
+  def published_posts, do: Enum.filter(all_posts(), &(&1.published == true))
   def recent_posts(num \\ 5), do: Enum.take(all_posts(), num)
 
   defmodule NotFoundError do
