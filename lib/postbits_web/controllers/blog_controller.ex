@@ -3,8 +3,14 @@ defmodule PostbitsWeb.BlogController do
 
   alias Postbits.Blog
 
-  def index(conn, _params) do
-    render(conn, "index.html", posts: Blog.all_posts(), tags: Blog.all_tags())
+  def index(conn, params) do
+    posts =
+      case params["tag"] do
+        nil -> Blog.all_posts()
+        tag -> Blog.get_posts_by_tag!(tag)
+      end
+
+    render(conn, "index.html", posts: posts, tags: Blog.all_tags(), selected_tag: params["tag"])
   end
 
   def show(conn, %{"id" => id}) do

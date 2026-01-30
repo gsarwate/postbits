@@ -3,8 +3,13 @@
 
   <div class="mb-8 flex flex-wrap justify-center gap-3">
     <span class="text-lg font-semibold">Tags:</span>
+    <.link href={~p"/blog"} class={"badge badge-lg transition-colors #{if @selected_tag == nil, do: "badge-primary", else: "badge-outline hover:badge-primary"}"}>
+      All
+    </.link>
     <%= for tag <- @tags do %>
-      <span class="badge badge-outline badge-lg hover:badge-primary transition-colors cursor-pointer">{tag}</span>
+      <.link href={~p"/blog?#{[tag: tag]}"} class={"badge badge-lg transition-colors #{if @selected_tag == tag, do: "badge-primary", else: "badge-outline hover:badge-primary"}"}>
+        {tag}
+      </.link>
     <% end %>
   </div>
 

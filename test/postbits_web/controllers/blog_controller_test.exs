@@ -47,13 +47,36 @@ defmodule PostbitsWeb.BlogControllerTest do
       assert response =~ "no-underline"
     end
 
-    test "displays list of all tags", %{conn: conn} do
+    test "displays list of all tags as clickable links", %{conn: conn} do
       conn = get(conn, ~p"/blog")
       response = html_response(conn, 200)
 
       assert response =~ "Tags:"
-      assert response =~ "badge badge-outline badge-lg"
-      assert response =~ "hover:badge-primary"
+      assert response =~ "badge-outline hover:badge-primary"
+      assert response =~ "href=\"/blog?tag="
+    end
+
+    test "displays All tag link that is selected by default", %{conn: conn} do
+      conn = get(conn, ~p"/blog")
+      response = html_response(conn, 200)
+
+      assert response =~ "All"
+      assert response =~ "badge-primary"
+    end
+
+    test "filters posts by tag when tag parameter is provided", %{conn: conn} do
+      conn = get(conn, ~p"/blog?tag=hello")
+      response = html_response(conn, 200)
+
+      assert response =~ "Listing all posts"
+      assert response =~ "Hello world!"
+    end
+
+    test "highlights selected tag", %{conn: conn} do
+      conn = get(conn, ~p"/blog?tag=hello")
+      response = html_response(conn, 200)
+
+      assert response =~ "badge-primary"
     end
   end
 
