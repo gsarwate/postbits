@@ -2,11 +2,13 @@ defmodule PostbitsWeb.BlogControllerTest do
   use PostbitsWeb.ConnCase
 
   describe "GET /blog" do
-    test "renders the blog index page with card layout", %{conn: conn} do
+    test "renders the blog index page with centered card layout", %{conn: conn} do
       conn = get(conn, ~p"/blog")
       response = html_response(conn, 200)
 
       assert response =~ "Listing all posts"
+      assert response =~ "max-w-7xl mx-auto"
+      assert response =~ "text-center"
       assert response =~ "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
     end
 
