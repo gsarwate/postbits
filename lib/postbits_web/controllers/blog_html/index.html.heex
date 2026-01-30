@@ -1,27 +1,29 @@
-<h1 class="text-4xl font-bold mb-8">Listing all posts</h1>
+<div class="max-w-7xl mx-auto px-4 py-8">
+  <h1 class="text-4xl font-bold mb-8 text-center">Listing all posts</h1>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  <%= for post <- @posts do %>
-    <.link href={~p"/blog/#{post.id}"} class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow cursor-pointer no-underline">
-      <div id={post.id} class="card-body">
-        <h2 class="card-title">
-          {post.title}
-        </h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <%= for post <- @posts do %>
+      <.link href={~p"/blog/#{post.id}"} class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow cursor-pointer no-underline">
+        <div id={post.id} class="card-body">
+          <h2 class="card-title">
+            {post.title}
+          </h2>
 
-        <div class="text-sm opacity-70 mb-2">
-          <time>{post.date}</time> by {post.author}
+          <div class="text-sm opacity-70 mb-2">
+            <time>{post.date}</time> by {post.author}
+          </div>
+
+          <div class="prose">
+            {raw(post.description)}
+          </div>
+
+          <div class="card-actions justify-end mt-4">
+            <%= for tag <- post.tags do %>
+              <div class="badge badge-primary">{tag}</div>
+            <% end %>
+          </div>
         </div>
-
-        <div class="prose">
-          {raw(post.description)}
-        </div>
-
-        <div class="card-actions justify-end mt-4">
-          <%= for tag <- post.tags do %>
-            <div class="badge badge-primary">{tag}</div>
-          <% end %>
-        </div>
-      </div>
-    </.link>
-  <% end %>
+      </.link>
+    <% end %>
+  </div>
 </div>
