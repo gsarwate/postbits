@@ -47,11 +47,53 @@ defmodule PostbitsWeb.BlogControllerTest do
   end
 
   describe "GET /blog/:id" do
-    test "renders individual blog post", %{conn: conn} do
+    test "renders individual blog post with centered layout", %{conn: conn} do
       conn = get(conn, ~p"/blog/hello-world")
       response = html_response(conn, 200)
 
       assert response =~ "Hello world!"
+      assert response =~ "max-w-4xl mx-auto"
+      assert response =~ "<article"
+    end
+
+    test "displays post in a card with proper styling", %{conn: conn} do
+      conn = get(conn, ~p"/blog/hello-world")
+      response = html_response(conn, 200)
+
+      assert response =~ "bg-base-200 rounded-lg shadow-xl"
+      assert response =~ "prose prose-lg"
+    end
+
+    test "includes back link to blog index", %{conn: conn} do
+      conn = get(conn, ~p"/blog/hello-world")
+      response = html_response(conn, 200)
+
+      assert response =~ "Back to all posts"
+      assert response =~ "href=\"/blog\""
+    end
+
+    test "displays post metadata with icons", %{conn: conn} do
+      conn = get(conn, ~p"/blog/hello-world")
+      response = html_response(conn, 200)
+
+      assert response =~ "<time>"
+      assert response =~ "Ganesh Sarwate"
+      assert response =~ "<svg"
+    end
+
+    test "displays tags as large badges", %{conn: conn} do
+      conn = get(conn, ~p"/blog/hello-world")
+      response = html_response(conn, 200)
+
+      assert response =~ "badge badge-primary badge-lg"
+    end
+
+    test "includes View All Posts button", %{conn: conn} do
+      conn = get(conn, ~p"/blog/hello-world")
+      response = html_response(conn, 200)
+
+      assert response =~ "View All Posts"
+      assert response =~ "btn btn-primary"
     end
 
     test "returns 404 for non-existent post", %{conn: conn} do
