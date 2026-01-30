@@ -30,7 +30,7 @@ defmodule PostbitsWeb.BlogControllerTest do
       assert response =~ "by"
     end
 
-    test "displays tags as badges", %{conn: conn} do
+    test "displays tags as badges in cards", %{conn: conn} do
       conn = get(conn, ~p"/blog")
       response = html_response(conn, 200)
 
@@ -115,11 +115,13 @@ defmodule PostbitsWeb.BlogControllerTest do
       assert response =~ "<svg"
     end
 
-    test "displays tags as large badges", %{conn: conn} do
+    test "displays tags as clickable large badges", %{conn: conn} do
       conn = get(conn, ~p"/blog/hello-world")
       response = html_response(conn, 200)
 
       assert response =~ "badge badge-primary badge-lg"
+      assert response =~ "href=\"/blog?tag="
+      assert response =~ "hover:badge-primary-focus"
     end
 
     test "includes View All Posts button", %{conn: conn} do
