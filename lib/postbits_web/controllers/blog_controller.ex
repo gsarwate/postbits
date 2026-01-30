@@ -4,7 +4,7 @@ defmodule PostbitsWeb.BlogController do
   alias Postbits.Blog
 
   def index(conn, _params) do
-    render(conn, "index.html", posts: Blog.all_posts())
+    render(conn, "index.html", posts: Blog.all_posts(), tags: Blog.all_tags())
   end
 
   def show(conn, %{"id" => id}) do

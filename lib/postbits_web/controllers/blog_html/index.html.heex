@@ -1,6 +1,13 @@
 <div class="max-w-7xl mx-auto px-4 py-8">
   <h1 class="text-4xl font-bold mb-8 text-center">Listing all posts</h1>
 
+  <div class="mb-8 flex flex-wrap justify-center gap-3">
+    <span class="text-lg font-semibold">Tags:</span>
+    <%= for tag <- @tags do %>
+      <span class="badge badge-outline badge-lg hover:badge-primary transition-colors cursor-pointer">{tag}</span>
+    <% end %>
+  </div>
+
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <%= for post <- @posts do %>
       <.link href={~p"/blog/#{post.id}"} class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow cursor-pointer no-underline">

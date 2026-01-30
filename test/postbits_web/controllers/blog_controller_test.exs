@@ -46,6 +46,15 @@ defmodule PostbitsWeb.BlogControllerTest do
       assert response =~ "cursor-pointer"
       assert response =~ "no-underline"
     end
+
+    test "displays list of all tags", %{conn: conn} do
+      conn = get(conn, ~p"/blog")
+      response = html_response(conn, 200)
+
+      assert response =~ "Tags:"
+      assert response =~ "badge badge-outline badge-lg"
+      assert response =~ "hover:badge-primary"
+    end
   end
 
   describe "GET /blog/:id" do
